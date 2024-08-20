@@ -18,7 +18,9 @@ resource "azurerm_container_group" "containers" {
   resource_group_name = azurerm_resource_group.rg_agents.name
   ip_address_type     = "None"
   os_type             = "Linux"
-
+  # identity {
+  #   type = "SystemAssigned"
+  # }
   dynamic container {
     for_each = {for idx, suffix in random_id.suffix : idx => suffix.id}
     content  {
@@ -34,7 +36,6 @@ resource "azurerm_container_group" "containers" {
             } 
     }
   }
-  
   tags = {
     environment = "TFC"
   }
