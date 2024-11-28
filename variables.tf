@@ -23,5 +23,5 @@ variable "token" {
 
 variable "instance_count" {
   description = "Number of agent instances"
-  default     = 2
+  default     = 1
 }
