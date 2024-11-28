@@ -22,7 +22,7 @@ resource "azurerm_container_group" "containers" {
   # identity {
   #   type = "SystemAssigned"
   # }
-  subnet_ids = [var.private ? azurerm_subnet.aci_subnet[0].id : null]
+  subnet_ids = var.private ? [azurerm_subnet.aci_subnet[0].id] : null
   dynamic container {
     for_each = {for idx, suffix in random_id.suffix : idx => suffix.id}
     content  {
@@ -55,7 +55,7 @@ resource "azurerm_container_group" "containers" {
 
 ### Subnets:
 variable "private" {
-  default = true
+  default = false
 }
 resource "azurerm_virtual_network" "aci_network" {
   count = var.private ? 1 : 0
