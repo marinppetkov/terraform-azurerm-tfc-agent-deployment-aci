@@ -54,22 +54,20 @@ resource "azurerm_container_group" "containers" {
 }
 
 ### Subnets:
-variable "private" {
-  default = false
-}
+
 resource "azurerm_virtual_network" "aci_network" {
   count = var.private ? 1 : 0
-  name                = "example-vnet"
+  name                = "aci-vnet"
   address_space       = ["10.0.1.0/24"]
   location            = azurerm_resource_group.rg_agents.location
   resource_group_name = azurerm_resource_group.rg_agents.name
 }
 resource "azurerm_subnet" "aci_subnet" {
   count = var.private ? 1 : 0
-  name                 = "example-subnet"
+  name                 = "aci-subnet"
   resource_group_name  = azurerm_resource_group.rg_agents.name
   virtual_network_name = azurerm_virtual_network.aci_network[count.index].name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = ["10.0.1.0/26"]
 
   delegation {
     name = "delegation"

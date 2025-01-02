@@ -23,5 +23,12 @@ variable "token" {
 
 variable "instance_count" {
   description = "Number of agent instances"
+  type = number
   default     = 1
+}
+
+variable "private" {
+  description = "Defines if the IP address type of the container will be Private or None"
+  type = bool
+  default = false
 }
