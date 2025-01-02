@@ -32,7 +32,7 @@ resource "azurerm_container_group" "containers" {
         memory = "1"
         # https://github.com/hashicorp/terraform-provider-azurerm/issues/1697
         # For private connection at least one port must be exposed
-        # For ip address type equal to none its not required
+        # For ip address type equal to none, ports block is not needed
          ports {
           port = 443
           protocol = "TCP"
