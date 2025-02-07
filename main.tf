@@ -28,7 +28,7 @@ resource "azurerm_container_group" "containers" {
     content  {
         name   = "${var.container_name}-${container.key}"
         image  = "hashicorp/tfc-agent:latest"
-        cpu    = "0.5"
+        cpu    = "1"
         memory = "1"
         # https://github.com/hashicorp/terraform-provider-azurerm/issues/1697
         # For private connection at least one port must be exposed
@@ -41,6 +41,7 @@ resource "azurerm_container_group" "containers" {
   
         environment_variables =  {
             TFC_AGENT_NAME = "${var.agent_prefix_name}-${container.value}"
+            TFC_AGENT_AUTO_UPDATE = "disabled"
             } 
         secure_environment_variables =  {
             TFC_AGENT_TOKEN = var.token
